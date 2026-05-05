@@ -120,6 +120,76 @@ Before installation:
 
 ---
 
+## Flash Memory (Concept)
+
+Flash memory is a non-volatile storage medium used in embedded systems to store firmware, configuration data, and persistent state.
+
+Unlike RAM, flash retains data even when power is removed. However, it has specific characteristics:
+
+* Data is written in blocks (not byte-wise freely)
+* Erase operations occur at sector level
+* Limited write/erase cycles (wear considerations)
+* Writes are slower than reads
+
+In ESP32, flash memory stores:
+
+* Bootloader
+* Application firmware
+* OTA partitions
+* Persistent storage (NVS)
+
+Understanding flash memory is essential for designing reliable OTA systems.
+
+---
+
+## ESP32 Flash Memory Layout (OTA Configuration)
+
+A typical ESP32 with 4MB flash uses a partition table to divide memory.
+
+### Example Layout
+
+```
+| Bootloader | Partition Table | NVS | OTA_0 | OTA_1 |
+```
+
+### Description
+
+* **Bootloader**
+  Initializes system and selects which partition to boot
+
+* **Partition Table**
+  Defines memory regions and sizes
+
+* **NVS (Non-Volatile Storage)**
+  Stores configuration, flags, and OTA state
+
+* **OTA_0 / OTA_1 (A/B Partitions)**
+  Two firmware slots used for safe updates
+
+---
+
+### Key Concept: A/B Partitioning
+
+* Device runs firmware from one partition (e.g., OTA_0)
+* New firmware is written to inactive partition (OTA_1)
+* Bootloader switches only after success
+* On failure, system rolls back automatically
+
+---
+
+### Size Constraint
+
+Firmware must fit within a single OTA partition, not total flash.
+
+Example:
+
+* Total flash: 4MB
+* OTA partition: ~1.3MB
+
+👉 Firmware must be ≤ partition size
+
+---
+
 ## Multi-Device Update Model
 
 * Devices periodically poll the server
@@ -225,3 +295,23 @@ HTTPS support and firmware authenticity verification.
 ## Summary
 
 DFMS is designed as a firmware lifecycle management system rather than a basic OTA implementation, focusing on reliability, scalability, and controlled deployment across distributed embedded devices.
+
+---
+
+## Author
+
+**Aditya Raman**
+
+Embedded Systems | IoT | Systems Programming
+
+* Focus Areas: Embedded Systems, Networking, Firmware Design
+* Tech Stack: C/C++, ESP32, Arduino, Socket Programming, Git
+
+---
+
+### Contact
+
+* GitHub: https://github.com/<your-username>
+* LinkedIn: https://linkedin.com/in/<your-profile>
+
+---
