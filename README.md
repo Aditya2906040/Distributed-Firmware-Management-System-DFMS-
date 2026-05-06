@@ -27,6 +27,8 @@ It is designed to manage the complete firmware lifecycle — including versionin
 
 ### High-Level Architecture
 
+![System Architecture](./Diagrams/High_Level_Architecture.png)
+
 - Devices periodically poll the server for update decisions
 - Server responds with firmware metadata (version, URL, checksum)
 - Devices download firmware and perform OTA updates
@@ -36,6 +38,10 @@ It is designed to manage the complete firmware lifecycle — including versionin
 ---
 
 ### Device Architecture
+
+### Device Architecture
+
+![Device Architecture](./Diagrams/Device_%20Internal_Architecture.png)
 
 The device is structured into modular components:
 
@@ -50,27 +56,13 @@ The device is structured into modular components:
 
 ## OTA Lifecycle
 
-```
-IDLE
-  ↓
-CHECK_FOR_UPDATE
-  ↓
-DOWNLOAD
-  ↓
-VERIFY
-  ↓
-INSTALL (inactive partition)
-  ↓
-REBOOT
-  ↓
-POST-BOOT VALIDATION
-   ├── SUCCESS → MARK VALID
-   └── FAILURE → ROLLBACK
-```
+![OTA update flow](./Diagrams/OTA_update_flow.png)
 
 ---
 
 ## Firmware Safety Model
+
+![Failure & Rollback Flow](./Diagrams/Failure_and_rollback_flow.png)
 
 ### Dual Partition (A/B)
 
@@ -215,6 +207,8 @@ Example:
 
 ## Staged Rollout (Canary Deployment)
 
+![Canary Rollout Flow](./Diagrams/Server&CanaryFlow.png)
+
 - Firmware is first deployed to a subset of devices
 - Devices report update success or failure
 - Server evaluates results
@@ -302,9 +296,7 @@ DFMS is designed as a firmware lifecycle management system rather than a basic O
 
 Embedded Systems | IoT | Systems Programming
 
-- Focus Areas: Embedded Systems, Networking, Firmware Design
-- Tech Stack: C/C++, ESP32, Arduino, Socket Programming, Git
+- Focus Areas: Embedded Systems, IoT Systems, Networking, Firmware Design
+- Tech Stack: C/C++, ESP IDF, Systems Programming, Networking, Git
 
 ---
-
-<img src="./Diagrams/OTA_update_flow.png" alt="Description" width="300" height="200" align="center">
