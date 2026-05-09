@@ -1,0 +1,2 @@
+source /home/aditya/esp/dfms/build/bootloader/gdbinit/symbols
+source /home/aditya/esp/dfms/build/bootloader/gdbinit/connect
